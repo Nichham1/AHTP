@@ -5,13 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <style>
-        body{ background-image: url('Content/img/bangkok-city.jpg'); background-repeat:no-repeat; background-size:cover; margin: 0;height: 200px; width: 400px; position: fixed; top: 50%; left: 50%; margin-top: -100px; margin-left: -200px; color:azure; text-align:center;}
-     
-             
+        body{height: 200px; width: 400px; background: black; position: fixed; top: 50%; left: 50%; margin-top: -100px; margin-left: -200px; color:azure; text-align:center;}
         </style>
    <title></title>
 </head>
-<body style="font-family: Arial, Helvetica, sans-serif; font-size: small">
+<body style="font-family: Arial, Helvetica, sans-serif; font-size: large;">
    <form id="form1" runat="server">
       <div>
          <h4 style="font-size: x-large">Log In</h4>
