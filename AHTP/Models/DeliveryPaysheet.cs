@@ -11,10 +11,12 @@ namespace AHTP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class DeliveryPaysheet
     {
         public int DeliveryPaysheetId { get; set; }
+        [Display(Name = "")]
         public Nullable<int> CustomerID { get; set; }
         public Nullable<int> DriverID { get; set; }
         public Nullable<System.DateTime> OrderDate { get; set; }
