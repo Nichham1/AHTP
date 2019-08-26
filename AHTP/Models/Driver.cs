@@ -11,7 +11,9 @@ namespace AHTP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
+    [MetadataType(typeof(Driver))]
     public partial class Driver
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,16 +22,29 @@ namespace AHTP.Models
             this.Deliveries = new HashSet<Delivery>();
             this.DeliveryPaysheets = new HashSet<DeliveryPaysheet>();
         }
-    
         public int DriverId { get; set; }
+
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        [Display(Name = "Address")]
         public string Address { get; set; }
+
+        [Display(Name = "Phone Number")]
         public string ContactNum { get; set; }
+
+        [Display(Name = "Email Address")]
         public string ContactEmail { get; set; }
+
+        [Display(Name = "DOB")]
         public System.DateTime BirthDate { get; set; }
+
+        [Display(Name = "Hired Date")]
         public System.DateTime HireDate { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Delivery> Deliveries { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
