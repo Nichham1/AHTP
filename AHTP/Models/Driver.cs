@@ -22,6 +22,7 @@ namespace AHTP.Models
             this.Deliveries = new HashSet<Delivery>();
             this.DeliveryPaysheets = new HashSet<DeliveryPaysheet>();
         }
+        [Display(Name = "Driver")]
         public int DriverId { get; set; }
 
         [Display(Name = "First Name")]

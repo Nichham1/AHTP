@@ -20,9 +20,10 @@ namespace AHTP.Models
         {
             this.DeliveryPaysheets = new HashSet<DeliveryPaysheet>();
         }
-    
+        [Display(Name = "Truck Detials")]
         public int TruckDetailsId { get; set; }
         public string Type { get; set; }
+
         [Display(Name = "Licenses Number")]
         public Nullable<short> LicNum { get; set; }
     

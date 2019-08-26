@@ -21,6 +21,7 @@ namespace AHTP.Models
             this.Deliveries = new HashSet<Delivery>();
         }
 
+        [Display(Name = "Order Number")]
         public int OrdersId { get; set; }
         [Display(Name = "Customer")]
         public Nullable<short> CustomerID { get; set; }

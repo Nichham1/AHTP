@@ -21,10 +21,12 @@ namespace AHTP.Models
         {
             this.Deliveries = new HashSet<Delivery>();
         }
-
+        [Display(Name = "Waiting")]
         public int WaitingId { get; set; }
+
         [Display(Name = "Time Waited")]
         public Nullable<int> ExtraTimePerWait { get; set; }
+
         [Display(Name = "Cost")]
         public Nullable<double> CostPerWait { get; set; }
 
