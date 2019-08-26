@@ -7,6 +7,8 @@
     <style>
         body{height: 200px; width: 400px; background: black; position: fixed; top: 50%; left: 50%; margin-top: -100px; margin-left: -200px; color:azure; text-align:center;}
         </style>
+        
+
    <title></title>
 </head>
 <body style="font-family: Arial, Helvetica, sans-serif; font-size: large;">
