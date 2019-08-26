@@ -1,0 +1,43 @@
+﻿@model AHTP.Models.Destination
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Destination</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DestinationFr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DestinationFr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DestinationTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DestinationTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DestinationCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DestinationCost)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DestinationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,83 @@
+﻿@model AHTP.Models.DeliveryPaysheet
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DeliveryPaysheet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShippedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShippedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Freight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Freight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryCostID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryCostID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Destination.DestinationFr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Destination.DestinationFr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Driver.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Driver.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TruckDetail.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TruckDetail.Type)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DeliveryPaysheetId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

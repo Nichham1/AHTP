@@ -1,0 +1,75 @@
+﻿@model AHTP.Models.Delivery
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Delivery</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TruckLicNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TruckLicNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Freight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Freight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Destination.DestinationFr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Destination.DestinationFr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Driver.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Driver.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.OrdersId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order.OrdersId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Waiting.WaitingId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Waiting.WaitingId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DeliveryId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
