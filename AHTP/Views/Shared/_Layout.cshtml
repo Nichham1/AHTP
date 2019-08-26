@@ -16,7 +16,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-               @* @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                @* @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
                 <a href="~/Login.aspx" class=" btn btn-default btn-flat btn-sm">Login</a>
                 <a href="~/LogOut.aspx" class="btn btn-default btn-flat btn-sm">Sign out</a>
             </div>
@@ -34,11 +34,22 @@
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <!-- Examples of creating a Datepicker -->
+            @Html.TextBox("YourTextBox", "", new { @class = "date-picker" })
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        $(function () {
+            var date = new Date(); $('.date-picker').datepicker({
+                endDate:'0d'
+            });
+        })
+    </script>
 </body>
 </html>
