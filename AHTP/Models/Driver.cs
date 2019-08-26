@@ -11,7 +11,9 @@ namespace AHTP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
+    [MetadataType(typeof(Driver))]
     public partial class Driver
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +24,8 @@ namespace AHTP.Models
         }
     
         public int DriverId { get; set; }
+
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
