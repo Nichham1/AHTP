@@ -381,6 +381,7 @@
     <Content Include="Views\TruckDetails\Details.cshtml" />
     <Content Include="Views\TruckDetails\Edit.cshtml" />
     <Content Include="Views\TruckDetails\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
