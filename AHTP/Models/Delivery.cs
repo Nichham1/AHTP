@@ -16,17 +16,24 @@ namespace AHTP.Models
     public partial class Delivery
     {
         public int DeliveryId { get; set; }
-        [Display(Name = "Customer")]
+
+        [Display(Name = "Customer Name")]
         public Nullable<int> CustomerID { get; set; }
-        [Display(Name = "Driver")]
+
+       [Display(Name = "Driver Name")]
         public Nullable<int> DriverID { get; set; }
+
         [Display(Name = "Order number")]
         public Nullable<int> OrderID { get; set; }
+
         [Display(Name = "Truck plate number")]
         public Nullable<int> TruckLicNum { get; set; }
+
         public Nullable<decimal> Freight { get; set; }
+
         [Display(Name = "Destination")]
         public Nullable<int> DestinationID { get; set; }
+
         [Display(Name = "Waiting Period")]
         public Nullable<int> WaitingId { get; set; }
 
