@@ -3,8 +3,44 @@
 }
 
     <div class="jumbotron">
-        <img src="~/Content/img/haulage.jpg" alt="haulage" style=" height: 100%; width: 100%; object-fit: contain">
-        <h1>Anderson's Haulage</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <h1 style="text-align:center;">  Anderson's Haulage</h1>
+
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="~/Content/img/haulage.jpg" alt="haulage" style=" height: 100%; width: 100%; object-fit: contain">
+                </div>
+
+                <div class="item">
+                    <img src="~/Content/img/Haulage2.png" alt="haulage2" style=" height: 100%; width: 100%; object-fit: contain">
+                </div>
+
+                <div class="item">
+                    <img src="~/Content/img/Truckdriver.jpg" alt="truckdiver" style=" height: 100%; width: 100%; object-fit: contain">
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+        <br />
+        <p class="lead">Anderson’s Haulage Services Ltd is the premier export/import cargo handlers in the region. We offer rental of high capacity containers for all your temporary storage needs. Our parent company Don Anderson Haulage, based in Ontario, has built a rich tradition of efficient service over the course of fifty years. Our aim is to stridently continue that tradition in Jamaica and attract international investments to the region.</p>
+
+        @*<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
     </div>

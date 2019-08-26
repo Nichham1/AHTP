@@ -294,6 +294,8 @@
     <Content Include="Content\img\ajax-loaderm.gif" />
     <Content Include="Content\img\ajax-loader.gif" />
     <Content Include="Content\img\haulage.jpg" />
+    <Content Include="Content\img\Haulage2.png" />
+    <Content Include="Content\img\Truckdriver.jpg" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.structure.css" />
     <Content Include="Content\jquery-ui.theme.css" />
