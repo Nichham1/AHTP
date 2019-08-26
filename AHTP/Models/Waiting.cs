@@ -11,8 +11,7 @@ namespace AHTP.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Waiting
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,9 +21,7 @@ namespace AHTP.Models
         }
     
         public int WaitingId { get; set; }
-        [Display(Name = "Time Waited")]
         public Nullable<int> ExtraTimePerWait { get; set; }
-        [Display(Name = "Cost")]
         public Nullable<double> CostPerWait { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

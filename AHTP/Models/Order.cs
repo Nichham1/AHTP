@@ -11,8 +11,7 @@ namespace AHTP.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,19 +21,12 @@ namespace AHTP.Models
         }
     
         public int OrdersId { get; set; }
-        [Display(Name = "Customer")]
         public Nullable<short> CustomerID { get; set; }
-        [Display(Name = " Driver")]
         public Nullable<short> DriverID { get; set; }
-        [Display(Name = "Order Date")]
         public Nullable<System.DateTime> OrderDate { get; set; }
-        [Display(Name = "Shipped Date")]
         public Nullable<System.DateTime> ShippedDate { get; set; }
-        [Display(Name = "Licenses")]
         public Nullable<int> TruckLicNum { get; set; }
-       
         public Nullable<decimal> Freight { get; set; }
-        [Display(Name = "Destination")]
         public Nullable<int> DestinationID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

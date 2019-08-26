@@ -11,8 +11,7 @@ namespace AHTP.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,22 +22,12 @@ namespace AHTP.Models
         }
     
         public int CustomerId { get; set; }
-
-        [Display(Name ="First Name")]
         public string FirstName { get; set; }
-        [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        [Display(Name = "Address Line 1")]
         public string AddressLine1 { get; set; }
-
-        [Display(Name = "City/District")]
         public string AddressLine2 { get; set; }
-
-        [Display(Name = "Phone Number")]
         public string ContactNum { get; set; }
-        [Display(Name = " Email Address")]
         public string ContactEmail { get; set; }
-        [Display(Name = "Gender")]
         public string Gender { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -5,18 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8d492464daa34e619a0cb5a86ab8129f" Name="Diagram1" ZoomLevel="63">
-        <EntityTypeShape EntityType="TruckingDatabaseModel.C__MigrationHistory" Width="1.5" PointX="8.875" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.AspNetRole" Width="1.5" PointX="13.375" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.AspNetUserClaim" Width="1.5" PointX="8.875" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.AspNetUserLogin" Width="1.5" PointX="13.5" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.AspNetUser" Width="1.5" PointX="10.875" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.C__MigrationHistory" Width="1.5" PointX="14.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.AspNetRole" Width="1.5" PointX="19" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.AspNetUserClaim" Width="1.5" PointX="14.5" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.AspNetUserLogin" Width="1.5" PointX="19.125" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.AspNetUser" Width="1.5" PointX="16.5" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TruckingDatabaseModel.Customer" Width="1.5" PointX="0.5" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="TruckingDatabaseModel.Delivery" Width="1.5" PointX="2.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.DeliveryPaysheet" Width="1.5" PointX="4.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.Destination" Width="1.5" PointX="4.625" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.Driver" Width="1.5" PointX="2.5" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.Order" Width="1.5" PointX="4.625" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.TruckDetail" Width="1.5" PointX="6.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.DeliveryPaysheet" Width="1.5" PointX="5.125" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.Destination" Width="1.5" PointX="9.375" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.Driver" Width="1.5" PointX="2.125" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.Order" Width="1.5" PointX="6.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.TruckDetail" Width="1.5" PointX="12.5" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TruckingDatabaseModel.Waiting" Width="1.5" PointX="0.5" PointY="1.875" IsExpanded="true" />
         <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
