@@ -15,20 +15,29 @@ namespace AHTP.Models
 
     public partial class DeliveryPaysheet
     {
+        [Display(Name = "Delivery Paysheet")]
         public int DeliveryPaysheetId { get; set; }
+
         [Display(Name = "Customer")]
         public Nullable<int> CustomerID { get; set; }
+
         [Display(Name = "Driver")]
         public Nullable<int> DriverID { get; set; }
+
         [Display(Name = " Order Date")]
         public Nullable<System.DateTime> OrderDate { get; set; }
+
         [Display(Name = "Shipped Date")]
         public Nullable<System.DateTime> ShippedDate { get; set; }
+
         [Display(Name = "Truck Details")]
         public Nullable<int> TruckDetailsID { get; set; }
+
         public Nullable<decimal> Freight { get; set; }
+
         [Display(Name = "Destination")]
         public Nullable<int> DestinationID { get; set; }
+
         [Display(Name = "Delivery")]
         public Nullable<int> DeliveryCostID { get; set; }
 

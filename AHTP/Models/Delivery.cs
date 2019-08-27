@@ -15,6 +15,7 @@ namespace AHTP.Models
 
     public partial class Delivery
     {
+        [Display(Name = "Delivery")]
         public int DeliveryId { get; set; }
 
         [Display(Name = "Customer Name")]

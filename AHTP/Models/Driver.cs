@@ -25,10 +25,10 @@ namespace AHTP.Models
         [Display(Name = "Driver")]
         public int DriverId { get; set; }
 
-        [Display(Name = "First Name")]
+        [Display(Name = " Driver First Name ")]
         public string FirstName { get; set; }
 
-        [Display(Name = "Last Name")]
+        [Display(Name = "Driver Last Name")]
         public string LastName { get; set; }
 
         [Display(Name = "Address")]

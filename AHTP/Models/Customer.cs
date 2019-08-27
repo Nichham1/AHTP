@@ -23,9 +23,9 @@ namespace AHTP.Models
         [Display(Name = "Customer")]
         public int CustomerId { get; set; }
 
-        [Display(Name = "First Name")]
+        [Display(Name = "Customer First Name")]
         public string FirstName { get; set; }
-        [Display(Name = "Last Name")]
+        [Display(Name = "Customer Last Name")]
         public string LastName { get; set; }
         [Display(Name = "Address Line 1")]
         public string AddressLine1 { get; set; }

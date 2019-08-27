@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using AHTP.Models;
 
 namespace AHTP.Controllers
@@ -41,7 +42,7 @@ namespace AHTP.Controllers
         public ActionResult Create()
         {
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "FirstName");
-            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationFr");
+            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationTo");
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverId", "FirstName");
             ViewBag.TruckDetailsID = new SelectList(db.TruckDetails, "TruckDetailsId", "Type");
             return View();
@@ -62,7 +63,7 @@ namespace AHTP.Controllers
             }
 
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "FirstName", deliveryPaysheet.CustomerID);
-            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationFr", deliveryPaysheet.DestinationID);
+            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationTo", deliveryPaysheet.DestinationID);
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverId", "FirstName", deliveryPaysheet.DriverID);
             ViewBag.TruckDetailsID = new SelectList(db.TruckDetails, "TruckDetailsId", "Type", deliveryPaysheet.TruckDetailsID);
             return View(deliveryPaysheet);
@@ -81,7 +82,7 @@ namespace AHTP.Controllers
                 return HttpNotFound();
             }
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "FirstName", deliveryPaysheet.CustomerID);
-            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationFr", deliveryPaysheet.DestinationID);
+            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationTo", deliveryPaysheet.DestinationID);
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverId", "FirstName", deliveryPaysheet.DriverID);
             ViewBag.TruckDetailsID = new SelectList(db.TruckDetails, "TruckDetailsId", "Type", deliveryPaysheet.TruckDetailsID);
             return View(deliveryPaysheet);
@@ -101,7 +102,7 @@ namespace AHTP.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "FirstName", deliveryPaysheet.CustomerID);
-            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationFr", deliveryPaysheet.DestinationID);
+            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationTo", deliveryPaysheet.DestinationID);
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverId", "FirstName", deliveryPaysheet.DriverID);
             ViewBag.TruckDetailsID = new SelectList(db.TruckDetails, "TruckDetailsId", "Type", deliveryPaysheet.TruckDetailsID);
             return View(deliveryPaysheet);
@@ -128,10 +129,11 @@ namespace AHTP.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             DeliveryPaysheet deliveryPaysheet = db.DeliveryPaysheets.Find(id);
-            db.DeliveryPaysheets.Remove(deliveryPaysheet);
+           db.DeliveryPaysheets.Remove(deliveryPaysheet);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {
@@ -140,6 +142,9 @@ namespace AHTP.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+
+           
+            }
         }
     }
-}
+
