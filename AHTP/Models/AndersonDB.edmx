@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TruckingDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TruckingDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -86,34 +86,32 @@
           <Property Name="DeliveryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerID" Type="int" />
           <Property Name="DriverID" Type="int" />
-          <Property Name="OrderID" Type="int" />
-          <Property Name="TruckLicNum" Type="int" />
-          <Property Name="Freight" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="ShippedDate " Type="datetime" />
+          <Property Name="TruckDetailsID" Type="int" />
+          <Property Name="Weight" Type="decimal" Precision="18" Scale="0" />
           <Property Name="DestinationID" Type="int" />
-          <Property Name="WaitingId" Type="int" />
         </EntityType>
         <EntityType Name="DeliveryPaysheet">
           <Key>
             <PropertyRef Name="DeliveryPaysheetId" />
           </Key>
-          <Property Name="DeliveryPaysheetId" Type="int" Nullable="false" />
+          <Property Name="DeliveryPaysheetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeliveryID" Type="int" />
           <Property Name="CustomerID" Type="int" />
           <Property Name="DriverID" Type="int" />
           <Property Name="OrderDate" Type="datetime" />
           <Property Name="ShippedDate" Type="datetime" />
-          <Property Name="TruckDetailsID" Type="int" />
-          <Property Name="Freight" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="DestinationID" Type="int" />
-          <Property Name="DeliveryCostID" Type="int" />
+          <Property Name="WaitingID" Type="int" />
         </EntityType>
         <EntityType Name="Destination">
           <Key>
             <PropertyRef Name="DestinationId" />
           </Key>
           <Property Name="DestinationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DestinationFr" Type="varchar" MaxLength="50" />
           <Property Name="DestinationTo" Type="varchar" MaxLength="50" />
-          <Property Name="DestinationCost" Type="float" />
+          <Property Name="DestinationFr" Type="varchar" MaxLength="50" />
+          <Property Name="DestinationCost" Type="money" />
         </EntityType>
         <EntityType Name="Drivers">
           <Key>
@@ -127,19 +125,6 @@
           <Property Name="ContactEmail" Type="varchar" MaxLength="50" />
           <Property Name="BirthDate" Type="date" Nullable="false" />
           <Property Name="HireDate" Type="date" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Orders">
-          <Key>
-            <PropertyRef Name="OrdersId" />
-          </Key>
-          <Property Name="OrdersId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CustomerID" Type="smallint" />
-          <Property Name="DriverID" Type="smallint" />
-          <Property Name="OrderDate" Type="datetime" />
-          <Property Name="ShippedDate" Type="datetime" />
-          <Property Name="TruckLicNum" Type="int" />
-          <Property Name="Freight" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="DestinationID" Type="int" />
         </EntityType>
         <EntityType Name="TruckDetails">
           <Key>
@@ -249,27 +234,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Delivery_dbo_Orders_OrdersId">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+        <Association Name="FK_dbo_Delivery_dbo_TruckDetails_TruckDetailsId">
+          <End Role="TruckDetails" Type="Self.TruckDetails" Multiplicity="0..1" />
           <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="OrdersId" />
+            <Principal Role="TruckDetails">
+              <PropertyRef Name="TruckDetailsId" />
             </Principal>
             <Dependent Role="Delivery">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Delivery_dbo_Waiting_WaitingID">
-          <End Role="Waiting" Type="Self.Waiting" Multiplicity="0..1" />
-          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Waiting">
-              <PropertyRef Name="WaitingId" />
-            </Principal>
-            <Dependent Role="Delivery">
-              <PropertyRef Name="WaitingId" />
+              <PropertyRef Name="TruckDetailsID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -285,15 +258,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_DeliveryPaysheet_dbo_Destination_DestinationId">
-          <End Role="Destination" Type="Self.Destination" Multiplicity="0..1" />
+        <Association Name="FK_dbo_DeliveryPaysheet_dbo_Delivery_DeliveryId">
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="0..1" />
           <End Role="DeliveryPaysheet" Type="Self.DeliveryPaysheet" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Destination">
-              <PropertyRef Name="DestinationId" />
+            <Principal Role="Delivery">
+              <PropertyRef Name="DeliveryId" />
             </Principal>
             <Dependent Role="DeliveryPaysheet">
-              <PropertyRef Name="DestinationID" />
+              <PropertyRef Name="DeliveryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -309,15 +282,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_DeliveryPaysheet_dbo_TruckDetails_TruckDetailsId">
-          <End Role="TruckDetails" Type="Self.TruckDetails" Multiplicity="0..1" />
+        <Association Name="FK_dbo_DeliveryPaysheet_dbo_Waiting_WaitingId">
+          <End Role="Waiting" Type="Self.Waiting" Multiplicity="0..1" />
           <End Role="DeliveryPaysheet" Type="Self.DeliveryPaysheet" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TruckDetails">
-              <PropertyRef Name="TruckDetailsId" />
+            <Principal Role="Waiting">
+              <PropertyRef Name="WaitingId" />
             </Principal>
             <Dependent Role="DeliveryPaysheet">
-              <PropertyRef Name="TruckDetailsID" />
+              <PropertyRef Name="WaitingID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -333,7 +306,6 @@
           <EntitySet Name="DeliveryPaysheet" EntityType="Self.DeliveryPaysheet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Destination" EntityType="Self.Destination" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TruckDetails" EntityType="Self.TruckDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Waiting" EntityType="Self.Waiting" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -364,33 +336,28 @@
             <End Role="Drivers" EntitySet="Drivers" />
             <End Role="Delivery" EntitySet="Delivery" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Delivery_dbo_Orders_OrdersId" Association="Self.FK_dbo_Delivery_dbo_Orders_OrdersId">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Delivery" EntitySet="Delivery" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Delivery_dbo_Waiting_WaitingID" Association="Self.FK_dbo_Delivery_dbo_Waiting_WaitingID">
-            <End Role="Waiting" EntitySet="Waiting" />
+          <AssociationSet Name="FK_dbo_Delivery_dbo_TruckDetails_TruckDetailsId" Association="Self.FK_dbo_Delivery_dbo_TruckDetails_TruckDetailsId">
+            <End Role="TruckDetails" EntitySet="TruckDetails" />
             <End Role="Delivery" EntitySet="Delivery" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId" Association="Self.FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="DeliveryPaysheet" EntitySet="DeliveryPaysheet" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_Destination_DestinationId" Association="Self.FK_dbo_DeliveryPaysheet_dbo_Destination_DestinationId">
-            <End Role="Destination" EntitySet="Destination" />
+          <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_Delivery_DeliveryId" Association="Self.FK_dbo_DeliveryPaysheet_dbo_Delivery_DeliveryId">
+            <End Role="Delivery" EntitySet="Delivery" />
             <End Role="DeliveryPaysheet" EntitySet="DeliveryPaysheet" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId" Association="Self.FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId">
             <End Role="Drivers" EntitySet="Drivers" />
             <End Role="DeliveryPaysheet" EntitySet="DeliveryPaysheet" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_TruckDetails_TruckDetailsId" Association="Self.FK_dbo_DeliveryPaysheet_dbo_TruckDetails_TruckDetailsId">
-            <End Role="TruckDetails" EntitySet="TruckDetails" />
+          <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_Waiting_WaitingId" Association="Self.FK_dbo_DeliveryPaysheet_dbo_Waiting_WaitingId">
+            <End Role="Waiting" EntitySet="Waiting" />
             <End Role="DeliveryPaysheet" EntitySet="DeliveryPaysheet" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TruckingDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -465,85 +432,9 @@
           <Property Name="ContactNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ContactEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Deliveries" Relationship="Self.FK_dbo_Delivery_dbo_Customer_CustomerId" FromRole="Customer" ToRole="Delivery" />
-          <NavigationProperty Name="DeliveryPaysheets" Relationship="Self.FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId" FromRole="Customer" ToRole="DeliveryPaysheet" />
-        </EntityType>
-        <EntityType Name="Delivery">
-          <Key>
-            <PropertyRef Name="DeliveryId" />
-          </Key>
-          <Property Name="DeliveryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerID" Type="Int32" />
-          <Property Name="DriverID" Type="Int32" />
-          <Property Name="OrderID" Type="Int32" />
-          <Property Name="TruckLicNum" Type="Int32" />
-          <Property Name="Freight" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="DestinationID" Type="Int32" />
-          <Property Name="WaitingId" Type="Int32" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_dbo_Delivery_dbo_Customer_CustomerId" FromRole="Delivery" ToRole="Customer" />
-          <NavigationProperty Name="Destination" Relationship="Self.FK_dbo_Delivery_dbo_Destination_DestinationId" FromRole="Delivery" ToRole="Destination" />
-          <NavigationProperty Name="Driver" Relationship="Self.FK_dbo_Delivery_dbo_Driver_DriverId" FromRole="Delivery" ToRole="Drivers" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_dbo_Delivery_dbo_Orders_OrdersId" FromRole="Delivery" ToRole="Orders" />
-          <NavigationProperty Name="Waiting" Relationship="Self.FK_dbo_Delivery_dbo_Waiting_WaitingID" FromRole="Delivery" ToRole="Waiting" />
-        </EntityType>
-        <EntityType Name="DeliveryPaysheet">
-          <Key>
-            <PropertyRef Name="DeliveryPaysheetId" />
-          </Key>
-          <Property Name="DeliveryPaysheetId" Type="Int32" Nullable="false" />
-          <Property Name="CustomerID" Type="Int32" />
-          <Property Name="DriverID" Type="Int32" />
-          <Property Name="OrderDate" Type="DateTime" Precision="3" />
-          <Property Name="ShippedDate" Type="DateTime" Precision="3" />
-          <Property Name="TruckDetailsID" Type="Int32" />
-          <Property Name="Freight" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="DestinationID" Type="Int32" />
-          <Property Name="DeliveryCostID" Type="Int32" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId" FromRole="DeliveryPaysheet" ToRole="Customer" />
-          <NavigationProperty Name="Destination" Relationship="Self.FK_dbo_DeliveryPaysheet_dbo_Destination_DestinationId" FromRole="DeliveryPaysheet" ToRole="Destination" />
-          <NavigationProperty Name="Driver" Relationship="Self.FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId" FromRole="DeliveryPaysheet" ToRole="Drivers" />
-          <NavigationProperty Name="TruckDetail" Relationship="Self.FK_dbo_DeliveryPaysheet_dbo_TruckDetails_TruckDetailsId" FromRole="DeliveryPaysheet" ToRole="TruckDetails" />
-        </EntityType>
-        <EntityType Name="Destination">
-          <Key>
-            <PropertyRef Name="DestinationId" />
-          </Key>
-          <Property Name="DestinationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DestinationFr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DestinationTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DestinationCost" Type="Double" />
-          <NavigationProperty Name="Deliveries" Relationship="Self.FK_dbo_Delivery_dbo_Destination_DestinationId" FromRole="Destination" ToRole="Delivery" />
-          <NavigationProperty Name="DeliveryPaysheets" Relationship="Self.FK_dbo_DeliveryPaysheet_dbo_Destination_DestinationId" FromRole="Destination" ToRole="DeliveryPaysheet" />
-        </EntityType>
-        <EntityType Name="Driver">
-          <Key>
-            <PropertyRef Name="DriverId" />
-          </Key>
-          <Property Name="DriverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ContactNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ContactEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Deliveries" Relationship="Self.FK_dbo_Delivery_dbo_Driver_DriverId" FromRole="Drivers" ToRole="Delivery" />
-          <NavigationProperty Name="DeliveryPaysheets" Relationship="Self.FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId" FromRole="Drivers" ToRole="DeliveryPaysheet" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="OrdersId" />
-          </Key>
-          <Property Name="OrdersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerID" Type="Int16" />
-          <Property Name="DriverID" Type="Int16" />
-          <Property Name="OrderDate" Type="DateTime" Precision="3" />
-          <Property Name="ShippedDate" Type="DateTime" Precision="3" />
-          <Property Name="TruckLicNum" Type="Int32" />
-          <Property Name="Freight" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="DestinationID" Type="Int32" />
-          <NavigationProperty Name="Deliveries" Relationship="Self.FK_dbo_Delivery_dbo_Orders_OrdersId" FromRole="Orders" ToRole="Delivery" />
-        </EntityType>
+          <NavigationProperty Name="DeliveryPaysheets" Relationship="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId" FromRole="Customer" ToRole="DeliveryPaysheet" />
+          <NavigationProperty Name="Deliveries" Relationship="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Customer_CustomerId" FromRole="Customer" ToRole="Delivery" />
+          </EntityType>
         <EntityType Name="TruckDetail">
           <Key>
             <PropertyRef Name="TruckDetailsId" />
@@ -551,16 +442,7 @@
           <Property Name="TruckDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LicNum" Type="Int16" />
-          <NavigationProperty Name="DeliveryPaysheets" Relationship="Self.FK_dbo_DeliveryPaysheet_dbo_TruckDetails_TruckDetailsId" FromRole="TruckDetails" ToRole="DeliveryPaysheet" />
-        </EntityType>
-        <EntityType Name="Waiting">
-          <Key>
-            <PropertyRef Name="WaitingId" />
-          </Key>
-          <Property Name="WaitingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ExtraTimePerWait" Type="Int32" />
-          <Property Name="CostPerWait" Type="Double" />
-          <NavigationProperty Name="Deliveries" Relationship="Self.FK_dbo_Delivery_dbo_Waiting_WaitingID" FromRole="Waiting" ToRole="Delivery" />
+          <NavigationProperty Name="Deliveries" Relationship="TruckingDatabaseModel.FK_dbo_Delivery_dbo_TruckDetails_TruckDetailsId" FromRole="TruckDetail" ToRole="Delivery" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -590,114 +472,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Delivery_dbo_Customer_CustomerId">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="Delivery">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="DeliveryPaysheet" Type="Self.DeliveryPaysheet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="DeliveryPaysheet">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Delivery_dbo_Destination_DestinationId">
-          <End Role="Destination" Type="Self.Destination" Multiplicity="0..1" />
-          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Destination">
-              <PropertyRef Name="DestinationId" />
-            </Principal>
-            <Dependent Role="Delivery">
-              <PropertyRef Name="DestinationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Delivery_dbo_Driver_DriverId">
-          <End Role="Drivers" Type="Self.Driver" Multiplicity="0..1" />
-          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Drivers">
-              <PropertyRef Name="DriverId" />
-            </Principal>
-            <Dependent Role="Delivery">
-              <PropertyRef Name="DriverID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Delivery_dbo_Orders_OrdersId">
-          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
-          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="OrdersId" />
-            </Principal>
-            <Dependent Role="Delivery">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Delivery_dbo_Waiting_WaitingID">
-          <End Role="Waiting" Type="Self.Waiting" Multiplicity="0..1" />
-          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Waiting">
-              <PropertyRef Name="WaitingId" />
-            </Principal>
-            <Dependent Role="Delivery">
-              <PropertyRef Name="WaitingId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_DeliveryPaysheet_dbo_Destination_DestinationId">
-          <End Role="Destination" Type="Self.Destination" Multiplicity="0..1" />
-          <End Role="DeliveryPaysheet" Type="Self.DeliveryPaysheet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Destination">
-              <PropertyRef Name="DestinationId" />
-            </Principal>
-            <Dependent Role="DeliveryPaysheet">
-              <PropertyRef Name="DestinationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId">
-          <End Role="Drivers" Type="Self.Driver" Multiplicity="0..1" />
-          <End Role="DeliveryPaysheet" Type="Self.DeliveryPaysheet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Drivers">
-              <PropertyRef Name="DriverId" />
-            </Principal>
-            <Dependent Role="DeliveryPaysheet">
-              <PropertyRef Name="DriverID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_DeliveryPaysheet_dbo_TruckDetails_TruckDetailsId">
-          <End Role="TruckDetails" Type="Self.TruckDetail" Multiplicity="0..1" />
-          <End Role="DeliveryPaysheet" Type="Self.DeliveryPaysheet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TruckDetails">
-              <PropertyRef Name="TruckDetailsId" />
-            </Principal>
-            <Dependent Role="DeliveryPaysheet">
-              <PropertyRef Name="TruckDetailsID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="AspNetUserRoles">
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
@@ -709,13 +483,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="Deliveries" EntityType="Self.Delivery" />
-          <EntitySet Name="DeliveryPaysheets" EntityType="Self.DeliveryPaysheet" />
-          <EntitySet Name="Destinations" EntityType="Self.Destination" />
-          <EntitySet Name="Drivers" EntityType="Self.Driver" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="TruckDetails" EntityType="Self.TruckDetail" />
-          <EntitySet Name="Waitings" EntityType="Self.Waiting" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -724,48 +492,213 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Delivery_dbo_Customer_CustomerId" Association="Self.FK_dbo_Delivery_dbo_Customer_CustomerId">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Delivery" EntitySet="Deliveries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId" Association="Self.FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="DeliveryPaysheet" EntitySet="DeliveryPaysheets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Delivery_dbo_Destination_DestinationId" Association="Self.FK_dbo_Delivery_dbo_Destination_DestinationId">
-            <End Role="Destination" EntitySet="Destinations" />
-            <End Role="Delivery" EntitySet="Deliveries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Delivery_dbo_Driver_DriverId" Association="Self.FK_dbo_Delivery_dbo_Driver_DriverId">
-            <End Role="Drivers" EntitySet="Drivers" />
-            <End Role="Delivery" EntitySet="Deliveries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Delivery_dbo_Orders_OrdersId" Association="Self.FK_dbo_Delivery_dbo_Orders_OrdersId">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Delivery" EntitySet="Deliveries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Delivery_dbo_Waiting_WaitingID" Association="Self.FK_dbo_Delivery_dbo_Waiting_WaitingID">
-            <End Role="Waiting" EntitySet="Waitings" />
-            <End Role="Delivery" EntitySet="Deliveries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_Destination_DestinationId" Association="Self.FK_dbo_DeliveryPaysheet_dbo_Destination_DestinationId">
-            <End Role="Destination" EntitySet="Destinations" />
-            <End Role="DeliveryPaysheet" EntitySet="DeliveryPaysheets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId" Association="Self.FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId">
-            <End Role="Drivers" EntitySet="Drivers" />
-            <End Role="DeliveryPaysheet" EntitySet="DeliveryPaysheets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_TruckDetails_TruckDetailsId" Association="Self.FK_dbo_DeliveryPaysheet_dbo_TruckDetails_TruckDetailsId">
-            <End Role="TruckDetails" EntitySet="TruckDetails" />
-            <End Role="DeliveryPaysheet" EntitySet="DeliveryPaysheets" />
-          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <EntitySet Name="Destinations" EntityType="TruckingDatabaseModel.Destination" />
+          <EntitySet Name="Drivers" EntityType="TruckingDatabaseModel.Driver" />
+          <EntitySet Name="Waitings" EntityType="TruckingDatabaseModel.Waiting" />
+          <EntitySet Name="DeliveryPaysheets" EntityType="TruckingDatabaseModel.DeliveryPaysheet" />
+          <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId" Association="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="DeliveryPaysheet" EntitySet="DeliveryPaysheets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId" Association="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="DeliveryPaysheet" EntitySet="DeliveryPaysheets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_Waiting_WaitingId" Association="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Waiting_WaitingId">
+            <End Role="Waiting" EntitySet="Waitings" />
+            <End Role="DeliveryPaysheet" EntitySet="DeliveryPaysheets" />
+          </AssociationSet>
+          <EntitySet Name="Deliveries" EntityType="TruckingDatabaseModel.Delivery" />
+          <AssociationSet Name="FK_dbo_Delivery_dbo_Customer_CustomerId" Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Customer_CustomerId">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Delivery" EntitySet="Deliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Delivery_dbo_Destination_DestinationId" Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Destination_DestinationId">
+            <End Role="Destination" EntitySet="Destinations" />
+            <End Role="Delivery" EntitySet="Deliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Delivery_dbo_Driver_DriverId" Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Driver_DriverId">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="Delivery" EntitySet="Deliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Delivery_dbo_TruckDetails_TruckDetailsId" Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_TruckDetails_TruckDetailsId">
+            <End Role="TruckDetail" EntitySet="TruckDetails" />
+            <End Role="Delivery" EntitySet="Deliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_DeliveryPaysheet_dbo_Delivery_DeliveryId" Association="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Delivery_DeliveryId">
+            <End Role="Delivery" EntitySet="Deliveries" />
+            <End Role="DeliveryPaysheet" EntitySet="DeliveryPaysheets" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Destination">
+          <Key>
+            <PropertyRef Name="DestinationId" />
+          </Key>
+          <Property Name="DestinationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DestinationTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationFr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationCost" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Deliveries" Relationship="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Destination_DestinationId" FromRole="Destination" ToRole="Delivery" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="DeliveryPaysheets" Relationship="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId" FromRole="Driver" ToRole="DeliveryPaysheet" />
+          <NavigationProperty Name="Deliveries" Relationship="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Driver_DriverId" FromRole="Driver" ToRole="Delivery" />
+        </EntityType>
+        <EntityType Name="Waiting">
+          <Key>
+            <PropertyRef Name="WaitingId" />
+          </Key>
+          <Property Name="WaitingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExtraTimePerWait" Type="Int32" />
+          <Property Name="CostPerWait" Type="Double" />
+          <NavigationProperty Name="DeliveryPaysheets" Relationship="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Waiting_WaitingId" FromRole="Waiting" ToRole="DeliveryPaysheet" />
+        </EntityType>
+        <EntityType Name="DeliveryPaysheet">
+          <Key>
+            <PropertyRef Name="DeliveryPaysheetId" />
+          </Key>
+          <Property Name="DeliveryPaysheetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeliveryID" Type="Int32" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="DriverID" Type="Int32" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="ShippedDate" Type="DateTime" Precision="3" />
+          <Property Name="WaitingID" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId" FromRole="DeliveryPaysheet" ToRole="Customer" />
+          <NavigationProperty Name="Driver" Relationship="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId" FromRole="DeliveryPaysheet" ToRole="Driver" />
+          <NavigationProperty Name="Waiting" Relationship="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Waiting_WaitingId" FromRole="DeliveryPaysheet" ToRole="Waiting" />
+          <NavigationProperty Name="Delivery" Relationship="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Delivery_DeliveryId" FromRole="DeliveryPaysheet" ToRole="Delivery" />
+        </EntityType>
+        <Association Name="FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId">
+          <End Type="TruckingDatabaseModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="TruckingDatabaseModel.DeliveryPaysheet" Role="DeliveryPaysheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="DeliveryPaysheet">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId">
+          <End Type="TruckingDatabaseModel.Driver" Role="Driver" Multiplicity="0..1" />
+          <End Type="TruckingDatabaseModel.DeliveryPaysheet" Role="DeliveryPaysheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="DeliveryPaysheet">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_DeliveryPaysheet_dbo_Waiting_WaitingId">
+          <End Type="TruckingDatabaseModel.Waiting" Role="Waiting" Multiplicity="0..1" />
+          <End Type="TruckingDatabaseModel.DeliveryPaysheet" Role="DeliveryPaysheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Waiting">
+              <PropertyRef Name="WaitingId" />
+            </Principal>
+            <Dependent Role="DeliveryPaysheet">
+              <PropertyRef Name="WaitingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Delivery">
+          <Key>
+            <PropertyRef Name="DeliveryId" />
+          </Key>
+          <Property Name="DeliveryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="DriverID" Type="Int32" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="ShippedDate_" Type="DateTime" Precision="3" />
+          <Property Name="TruckDetailsID" Type="Int32" />
+          <Property Name="Weight" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DestinationID" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Customer_CustomerId" FromRole="Delivery" ToRole="Customer" />
+          <NavigationProperty Name="Destination" Relationship="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Destination_DestinationId" FromRole="Delivery" ToRole="Destination" />
+          <NavigationProperty Name="Driver" Relationship="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Driver_DriverId" FromRole="Delivery" ToRole="Driver" />
+          <NavigationProperty Name="TruckDetail" Relationship="TruckingDatabaseModel.FK_dbo_Delivery_dbo_TruckDetails_TruckDetailsId" FromRole="Delivery" ToRole="TruckDetail" />
+          <NavigationProperty Name="DeliveryPaysheets" Relationship="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Delivery_DeliveryId" FromRole="Delivery" ToRole="DeliveryPaysheet" />
+        </EntityType>
+        <Association Name="FK_dbo_Delivery_dbo_Customer_CustomerId">
+          <End Type="TruckingDatabaseModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="TruckingDatabaseModel.Delivery" Role="Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Delivery_dbo_Destination_DestinationId">
+          <End Type="TruckingDatabaseModel.Destination" Role="Destination" Multiplicity="0..1" />
+          <End Type="TruckingDatabaseModel.Delivery" Role="Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Destination">
+              <PropertyRef Name="DestinationId" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="DestinationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Delivery_dbo_Driver_DriverId">
+          <End Type="TruckingDatabaseModel.Driver" Role="Driver" Multiplicity="0..1" />
+          <End Type="TruckingDatabaseModel.Delivery" Role="Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Delivery_dbo_TruckDetails_TruckDetailsId">
+          <End Type="TruckingDatabaseModel.TruckDetail" Role="TruckDetail" Multiplicity="0..1" />
+          <End Type="TruckingDatabaseModel.Delivery" Role="Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TruckDetail">
+              <PropertyRef Name="TruckDetailsId" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="TruckDetailsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_DeliveryPaysheet_dbo_Delivery_DeliveryId">
+          <End Type="TruckingDatabaseModel.Delivery" Role="Delivery" Multiplicity="0..1" />
+          <End Type="TruckingDatabaseModel.DeliveryPaysheet" Role="DeliveryPaysheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Delivery">
+              <PropertyRef Name="DeliveryId" />
+            </Principal>
+            <Dependent Role="DeliveryPaysheet">
+              <PropertyRef Name="DeliveryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -840,88 +773,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Deliveries">
-            <EntityTypeMapping TypeName="TruckingDatabaseModel.Delivery">
-              <MappingFragment StoreEntitySet="Delivery">
-                <ScalarProperty Name="DeliveryId" ColumnName="DeliveryId" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="TruckLicNum" ColumnName="TruckLicNum" />
-                <ScalarProperty Name="Freight" ColumnName="Freight" />
-                <ScalarProperty Name="DestinationID" ColumnName="DestinationID" />
-                <ScalarProperty Name="WaitingId" ColumnName="WaitingId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DeliveryPaysheets">
-            <EntityTypeMapping TypeName="TruckingDatabaseModel.DeliveryPaysheet">
-              <MappingFragment StoreEntitySet="DeliveryPaysheet">
-                <ScalarProperty Name="DeliveryPaysheetId" ColumnName="DeliveryPaysheetId" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
-                <ScalarProperty Name="TruckDetailsID" ColumnName="TruckDetailsID" />
-                <ScalarProperty Name="Freight" ColumnName="Freight" />
-                <ScalarProperty Name="DestinationID" ColumnName="DestinationID" />
-                <ScalarProperty Name="DeliveryCostID" ColumnName="DeliveryCostID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Destinations">
-            <EntityTypeMapping TypeName="TruckingDatabaseModel.Destination">
-              <MappingFragment StoreEntitySet="Destination">
-                <ScalarProperty Name="DestinationId" ColumnName="DestinationId" />
-                <ScalarProperty Name="DestinationFr" ColumnName="DestinationFr" />
-                <ScalarProperty Name="DestinationTo" ColumnName="DestinationTo" />
-                <ScalarProperty Name="DestinationCost" ColumnName="DestinationCost" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Drivers">
-            <EntityTypeMapping TypeName="TruckingDatabaseModel.Driver">
-              <MappingFragment StoreEntitySet="Drivers">
-                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="ContactNum" ColumnName="ContactNum" />
-                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="TruckingDatabaseModel.Order">
-              <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="OrdersId" ColumnName="OrdersId" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
-                <ScalarProperty Name="TruckLicNum" ColumnName="TruckLicNum" />
-                <ScalarProperty Name="Freight" ColumnName="Freight" />
-                <ScalarProperty Name="DestinationID" ColumnName="DestinationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TruckDetails">
             <EntityTypeMapping TypeName="TruckingDatabaseModel.TruckDetail">
               <MappingFragment StoreEntitySet="TruckDetails">
                 <ScalarProperty Name="TruckDetailsId" ColumnName="TruckDetailsId" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="LicNum" ColumnName="LicNum" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Waitings">
-            <EntityTypeMapping TypeName="TruckingDatabaseModel.Waiting">
-              <MappingFragment StoreEntitySet="Waiting">
-                <ScalarProperty Name="WaitingId" ColumnName="WaitingId" />
-                <ScalarProperty Name="ExtraTimePerWait" ColumnName="ExtraTimePerWait" />
-                <ScalarProperty Name="CostPerWait" ColumnName="CostPerWait" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -933,6 +790,66 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Destinations">
+            <EntityTypeMapping TypeName="TruckingDatabaseModel.Destination">
+              <MappingFragment StoreEntitySet="Destination">
+                <ScalarProperty Name="DestinationCost" ColumnName="DestinationCost" />
+                <ScalarProperty Name="DestinationFr" ColumnName="DestinationFr" />
+                <ScalarProperty Name="DestinationTo" ColumnName="DestinationTo" />
+                <ScalarProperty Name="DestinationId" ColumnName="DestinationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="TruckingDatabaseModel.Driver">
+              <MappingFragment StoreEntitySet="Drivers">
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="ContactNum" ColumnName="ContactNum" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Waitings">
+            <EntityTypeMapping TypeName="TruckingDatabaseModel.Waiting">
+              <MappingFragment StoreEntitySet="Waiting">
+                <ScalarProperty Name="CostPerWait" ColumnName="CostPerWait" />
+                <ScalarProperty Name="ExtraTimePerWait" ColumnName="ExtraTimePerWait" />
+                <ScalarProperty Name="WaitingId" ColumnName="WaitingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeliveryPaysheets">
+            <EntityTypeMapping TypeName="TruckingDatabaseModel.DeliveryPaysheet">
+              <MappingFragment StoreEntitySet="DeliveryPaysheet">
+                <ScalarProperty Name="WaitingID" ColumnName="WaitingID" />
+                <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="DeliveryID" ColumnName="DeliveryID" />
+                <ScalarProperty Name="DeliveryPaysheetId" ColumnName="DeliveryPaysheetId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deliveries">
+            <EntityTypeMapping TypeName="TruckingDatabaseModel.Delivery">
+              <MappingFragment StoreEntitySet="Delivery">
+                <ScalarProperty Name="DestinationID" ColumnName="DestinationID" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="TruckDetailsID" ColumnName="TruckDetailsID" />
+                <ScalarProperty Name="ShippedDate_" ColumnName="ShippedDate " />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="DeliveryId" ColumnName="DeliveryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

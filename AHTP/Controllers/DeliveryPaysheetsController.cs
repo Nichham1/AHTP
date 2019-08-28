@@ -6,12 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using AHTP.Models;
 
 namespace AHTP.Controllers
 {
-    [Authorize]
     public class DeliveryPaysheetsController : Controller
     {
         private TruckingDatabaseEntities db = new TruckingDatabaseEntities();
@@ -19,7 +17,7 @@ namespace AHTP.Controllers
         // GET: DeliveryPaysheets
         public ActionResult Index()
         {
-            var deliveryPaysheets = db.DeliveryPaysheets.Include(d => d.Customer).Include(d => d.Destination).Include(d => d.Driver).Include(d => d.TruckDetail);
+            var deliveryPaysheets = db.DeliveryPaysheets.Include(d => d.Customer).Include(d => d.Driver).Include(d => d.Waiting).Include(d => d.Delivery);
             return View(deliveryPaysheets.ToList());
         }
 
@@ -42,9 +40,9 @@ namespace AHTP.Controllers
         public ActionResult Create()
         {
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "FirstName");
-            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationTo");
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverId", "FirstName");
-            ViewBag.TruckDetailsID = new SelectList(db.TruckDetails, "TruckDetailsId", "Type");
+            ViewBag.WaitingID = new SelectList(db.Waitings, "WaitingId", "WaitingId");
+            ViewBag.DeliveryID = new SelectList(db.Deliveries, "DeliveryId", "DeliveryId");
             return View();
         }
 
@@ -53,7 +51,7 @@ namespace AHTP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DeliveryPaysheetId,CustomerID,DriverID,OrderDate,ShippedDate,TruckDetailsID,Freight,DestinationID,DeliveryCostID")] DeliveryPaysheet deliveryPaysheet)
+        public ActionResult Create([Bind(Include = "DeliveryPaysheetId,DeliveryID,CustomerID,DriverID,OrderDate,ShippedDate,WaitingID")] DeliveryPaysheet deliveryPaysheet)
         {
             if (ModelState.IsValid)
             {
@@ -63,9 +61,9 @@ namespace AHTP.Controllers
             }
 
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "FirstName", deliveryPaysheet.CustomerID);
-            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationTo", deliveryPaysheet.DestinationID);
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverId", "FirstName", deliveryPaysheet.DriverID);
-            ViewBag.TruckDetailsID = new SelectList(db.TruckDetails, "TruckDetailsId", "Type", deliveryPaysheet.TruckDetailsID);
+            ViewBag.WaitingID = new SelectList(db.Waitings, "WaitingId", "WaitingId", deliveryPaysheet.WaitingID);
+            ViewBag.DeliveryID = new SelectList(db.Deliveries, "DeliveryId", "DeliveryId", deliveryPaysheet.DeliveryID);
             return View(deliveryPaysheet);
         }
 
@@ -82,9 +80,9 @@ namespace AHTP.Controllers
                 return HttpNotFound();
             }
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "FirstName", deliveryPaysheet.CustomerID);
-            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationTo", deliveryPaysheet.DestinationID);
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverId", "FirstName", deliveryPaysheet.DriverID);
-            ViewBag.TruckDetailsID = new SelectList(db.TruckDetails, "TruckDetailsId", "Type", deliveryPaysheet.TruckDetailsID);
+            ViewBag.WaitingID = new SelectList(db.Waitings, "WaitingId", "WaitingId", deliveryPaysheet.WaitingID);
+            ViewBag.DeliveryID = new SelectList(db.Deliveries, "DeliveryId", "DeliveryId", deliveryPaysheet.DeliveryID);
             return View(deliveryPaysheet);
         }
 
@@ -93,7 +91,7 @@ namespace AHTP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DeliveryPaysheetId,CustomerID,DriverID,OrderDate,ShippedDate,TruckDetailsID,Freight,DestinationID,DeliveryCostID")] DeliveryPaysheet deliveryPaysheet)
+        public ActionResult Edit([Bind(Include = "DeliveryPaysheetId,DeliveryID,CustomerID,DriverID,OrderDate,ShippedDate,WaitingID")] DeliveryPaysheet deliveryPaysheet)
         {
             if (ModelState.IsValid)
             {
@@ -102,9 +100,9 @@ namespace AHTP.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "FirstName", deliveryPaysheet.CustomerID);
-            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationTo", deliveryPaysheet.DestinationID);
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverId", "FirstName", deliveryPaysheet.DriverID);
-            ViewBag.TruckDetailsID = new SelectList(db.TruckDetails, "TruckDetailsId", "Type", deliveryPaysheet.TruckDetailsID);
+            ViewBag.WaitingID = new SelectList(db.Waitings, "WaitingId", "WaitingId", deliveryPaysheet.WaitingID);
+            ViewBag.DeliveryID = new SelectList(db.Deliveries, "DeliveryId", "DeliveryId", deliveryPaysheet.DeliveryID);
             return View(deliveryPaysheet);
         }
 
@@ -129,11 +127,10 @@ namespace AHTP.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             DeliveryPaysheet deliveryPaysheet = db.DeliveryPaysheets.Find(id);
-           db.DeliveryPaysheets.Remove(deliveryPaysheet);
+            db.DeliveryPaysheets.Remove(deliveryPaysheet);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
 
         protected override void Dispose(bool disposing)
         {
@@ -142,9 +139,6 @@ namespace AHTP.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-
-           
-            }
         }
     }
-
+}

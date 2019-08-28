@@ -10,7 +10,6 @@ using AHTP.Models;
 
 namespace AHTP.Controllers
 {
-    [Authorize]
     public class TruckDetailsController : Controller
     {
         private TruckingDatabaseEntities db = new TruckingDatabaseEntities();

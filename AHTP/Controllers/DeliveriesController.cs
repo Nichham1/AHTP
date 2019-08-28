@@ -10,7 +10,6 @@ using AHTP.Models;
 
 namespace AHTP.Controllers
 {
-    [Authorize]
     public class DeliveriesController : Controller
     {
         private TruckingDatabaseEntities db = new TruckingDatabaseEntities();
@@ -18,7 +17,7 @@ namespace AHTP.Controllers
         // GET: Deliveries
         public ActionResult Index()
         {
-            var deliveries = db.Deliveries.Include(d => d.Customer).Include(d => d.Destination).Include(d => d.Driver).Include(d => d.Order).Include(d => d.Waiting);
+            var deliveries = db.Deliveries.Include(d => d.Customer).Include(d => d.Destination).Include(d => d.Driver).Include(d => d.TruckDetail);
             return View(deliveries.ToList());
         }
 
@@ -41,10 +40,9 @@ namespace AHTP.Controllers
         public ActionResult Create()
         {
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "FirstName");
-            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationFr");
+            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationTo");
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverId", "FirstName");
-            ViewBag.OrderID = new SelectList(db.Orders, "OrdersId", "OrdersId");
-            ViewBag.WaitingId = new SelectList(db.Waitings, "WaitingId", "WaitingId");
+            ViewBag.TruckDetailsID = new SelectList(db.TruckDetails, "TruckDetailsId", "Type");
             return View();
         }
 
@@ -53,7 +51,7 @@ namespace AHTP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DeliveryId,CustomerID,DriverID,OrderID,TruckLicNum,Freight,DestinationID,WaitingId")] Delivery delivery)
+        public ActionResult Create([Bind(Include = "DeliveryId,CustomerID,DriverID,OrderDate,ShippedDate_,TruckDetailsID,Weight,DestinationID")] Delivery delivery)
         {
             if (ModelState.IsValid)
             {
@@ -63,10 +61,9 @@ namespace AHTP.Controllers
             }
 
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "FirstName", delivery.CustomerID);
-            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationFr", delivery.DestinationID);
+            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationTo", delivery.DestinationID);
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverId", "FirstName", delivery.DriverID);
-            ViewBag.OrderID = new SelectList(db.Orders, "OrdersId", "OrdersId", delivery.OrderID);
-            ViewBag.WaitingId = new SelectList(db.Waitings, "WaitingId", "WaitingId", delivery.WaitingId);
+            ViewBag.TruckDetailsID = new SelectList(db.TruckDetails, "TruckDetailsId", "Type", delivery.TruckDetailsID);
             return View(delivery);
         }
 
@@ -83,10 +80,9 @@ namespace AHTP.Controllers
                 return HttpNotFound();
             }
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "FirstName", delivery.CustomerID);
-            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationFr", delivery.DestinationID);
+            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationTo", delivery.DestinationID);
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverId", "FirstName", delivery.DriverID);
-            ViewBag.OrderID = new SelectList(db.Orders, "OrdersId", "OrdersId", delivery.OrderID);
-            ViewBag.WaitingId = new SelectList(db.Waitings, "WaitingId", "WaitingId", delivery.WaitingId);
+            ViewBag.TruckDetailsID = new SelectList(db.TruckDetails, "TruckDetailsId", "Type", delivery.TruckDetailsID);
             return View(delivery);
         }
 
@@ -95,7 +91,7 @@ namespace AHTP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DeliveryId,CustomerID,DriverID,OrderID,TruckLicNum,Freight,DestinationID,WaitingId")] Delivery delivery)
+        public ActionResult Edit([Bind(Include = "DeliveryId,CustomerID,DriverID,OrderDate,ShippedDate_,TruckDetailsID,Weight,DestinationID")] Delivery delivery)
         {
             if (ModelState.IsValid)
             {
@@ -104,10 +100,9 @@ namespace AHTP.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "FirstName", delivery.CustomerID);
-            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationFr", delivery.DestinationID);
+            ViewBag.DestinationID = new SelectList(db.Destinations, "DestinationId", "DestinationTo", delivery.DestinationID);
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverId", "FirstName", delivery.DriverID);
-            ViewBag.OrderID = new SelectList(db.Orders, "OrdersId", "OrdersId", delivery.OrderID);
-            ViewBag.WaitingId = new SelectList(db.Waitings, "WaitingId", "WaitingId", delivery.WaitingId);
+            ViewBag.TruckDetailsID = new SelectList(db.TruckDetails, "TruckDetailsId", "Type", delivery.TruckDetailsID);
             return View(delivery);
         }
 

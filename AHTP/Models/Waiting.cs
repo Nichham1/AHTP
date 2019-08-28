@@ -13,24 +13,21 @@ namespace AHTP.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-
     public partial class Waiting
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Waiting()
         {
-            this.Deliveries = new HashSet<Delivery>();
+            this.DeliveryPaysheets = new HashSet<DeliveryPaysheet>();
         }
         [Display(Name = "Waiting")]
         public int WaitingId { get; set; }
-
-        [Display(Name = "Time Waited")]
+        [Display(Name = "Time")]
         public Nullable<int> ExtraTimePerWait { get; set; }
-
         [Display(Name = "Cost")]
         public Nullable<double> CostPerWait { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Delivery> Deliveries { get; set; }
+        public virtual ICollection<DeliveryPaysheet> DeliveryPaysheets { get; set; }
     }
 }

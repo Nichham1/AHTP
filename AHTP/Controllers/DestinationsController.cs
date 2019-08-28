@@ -10,7 +10,6 @@ using AHTP.Models;
 
 namespace AHTP.Controllers
 {
-    [Authorize]
     public class DestinationsController : Controller
     {
         private TruckingDatabaseEntities db = new TruckingDatabaseEntities();
@@ -47,7 +46,7 @@ namespace AHTP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DestinationId,DestinationFr,DestinationTo,DestinationCost")] Destination destination)
+        public ActionResult Create([Bind(Include = "DestinationId,DestinationTo,DestinationFr,DestinationCost")] Destination destination)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +78,7 @@ namespace AHTP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DestinationId,DestinationFr,DestinationTo,DestinationCost")] Destination destination)
+        public ActionResult Edit([Bind(Include = "DestinationId,DestinationTo,DestinationFr,DestinationCost")] Destination destination)
         {
             if (ModelState.IsValid)
             {

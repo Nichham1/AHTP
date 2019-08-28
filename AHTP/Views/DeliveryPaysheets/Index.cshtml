@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<AHTP.Models.DeliveryPaysheet>
 
 @{
-    ViewBag.Title = "Paysheet";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h2>Paysheet</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -19,22 +19,16 @@
             @Html.DisplayNameFor(model => model.ShippedDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Freight)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeliveryCostID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Customer.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Destination.DestinationTo)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Driver.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TruckDetail.Type)
+            @Html.DisplayNameFor(model => model.Waiting.WaitingId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Delivery.DeliveryId)
         </th>
         <th></th>
     </tr>
@@ -48,22 +42,16 @@
             @Html.DisplayFor(modelItem => item.ShippedDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Freight)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeliveryCostID)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Customer.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Destination.DestinationTo)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Driver.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TruckDetail.Type)
+            @Html.DisplayFor(modelItem => item.Waiting.WaitingId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Delivery.DeliveryId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.DeliveryPaysheetId }) |

@@ -15,33 +15,34 @@ namespace AHTP.Models
 
     public partial class Delivery
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Delivery()
+        {
+            this.DeliveryPaysheets = new HashSet<DeliveryPaysheet>();
+        }
+
         [Display(Name = "Delivery")]
         public int DeliveryId { get; set; }
-
-        [Display(Name = "Customer Name")]
+        [Display(Name = "Customer")]
         public Nullable<int> CustomerID { get; set; }
-
-       [Display(Name = "Driver Name")]
+        [Display(Name = "Driver")]
         public Nullable<int> DriverID { get; set; }
-
-        [Display(Name = "Order number")]
-        public Nullable<int> OrderID { get; set; }
-
-        [Display(Name = "Truck plate number")]
-        public Nullable<int> TruckLicNum { get; set; }
-
-        public Nullable<decimal> Freight { get; set; }
-
+        [Display(Name = "Order Date")]
+        public Nullable<System.DateTime> OrderDate { get; set; }
+        [Display(Name = "Shipped Date")]
+        public Nullable<System.DateTime> ShippedDate_ { get; set; }
+        [Display(Name = "Truck")]
+        public Nullable<int> TruckDetailsID { get; set; }
+       
+        public Nullable<decimal> Weight { get; set; }
         [Display(Name = "Destination")]
         public Nullable<int> DestinationID { get; set; }
-
-        [Display(Name = "Waiting Period")]
-        public Nullable<int> WaitingId { get; set; }
-
+    
         public virtual Customer Customer { get; set; }
         public virtual Destination Destination { get; set; }
         public virtual Driver Driver { get; set; }
-        public virtual Order Order { get; set; }
-        public virtual Waiting Waiting { get; set; }
+        public virtual TruckDetail TruckDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryPaysheet> DeliveryPaysheets { get; set; }
     }
 }

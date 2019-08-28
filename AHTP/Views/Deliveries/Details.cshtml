@@ -12,19 +12,27 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TruckLicNum)
+            @Html.DisplayNameFor(model => model.OrderDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TruckLicNum)
+            @Html.DisplayFor(model => model.OrderDate)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Freight)
+            @Html.DisplayNameFor(model => model.ShippedDate_)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Freight)
+            @Html.DisplayFor(model => model.ShippedDate_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
         </dd>
 
         <dt>
@@ -36,11 +44,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Destination.DestinationFr)
+            @Html.DisplayNameFor(model => model.Destination.DestinationTo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Destination.DestinationFr)
+            @Html.DisplayFor(model => model.Destination.DestinationTo)
         </dd>
 
         <dt>
@@ -52,19 +60,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Order.OrdersId)
+            @Html.DisplayNameFor(model => model.TruckDetail.Type)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Order.OrdersId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Waiting.WaitingId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Waiting.WaitingId)
+            @Html.DisplayFor(model => model.TruckDetail.Type)
         </dd>
 
     </dl>

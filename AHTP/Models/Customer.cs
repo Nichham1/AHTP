@@ -12,37 +12,37 @@ namespace AHTP.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
-            this.Deliveries = new HashSet<Delivery>();
             this.DeliveryPaysheets = new HashSet<DeliveryPaysheet>();
+            this.Deliveries = new HashSet<Delivery>();
         }
-        [Display(Name = "Customer")]
+        [Display(Name="Customer")]
         public int CustomerId { get; set; }
 
         [Display(Name = "Customer First Name")]
         public string FirstName { get; set; }
-        [Display(Name = "Customer Last Name")]
+
+        [Display(Name = "Last name")]
         public string LastName { get; set; }
-        [Display(Name = "Address Line 1")]
+        [Display(Name = "Street Address ")]
         public string AddressLine1 { get; set; }
-
-        [Display(Name = "City/District")]
+        [Display(Name = "District")]
         public string AddressLine2 { get; set; }
-
         [Display(Name = "Phone Number")]
         public string ContactNum { get; set; }
-        [Display(Name = " Email Address")]
+        [Display(Name = "Email Address")]
         public string ContactEmail { get; set; }
         [Display(Name = "Gender")]
         public string Gender { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Delivery> Deliveries { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryPaysheet> DeliveryPaysheets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Delivery> Deliveries { get; set; }
     }
 }

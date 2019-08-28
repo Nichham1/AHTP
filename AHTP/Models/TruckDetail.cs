@@ -18,17 +18,16 @@ namespace AHTP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TruckDetail()
         {
-            this.DeliveryPaysheets = new HashSet<DeliveryPaysheet>();
+            this.Deliveries = new HashSet<Delivery>();
         }
-
         [Display(Name = "Truck Detials")]
         public int TruckDetailsId { get; set; }
+        [Display(Name = "Truck Type")]
         public string Type { get; set; }
-
-        [Display(Name = "Licenses Number")]
+        [Display(Name = "Plate Number")]
         public Nullable<short> LicNum { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryPaysheet> DeliveryPaysheets { get; set; }
+        public virtual ICollection<Delivery> Deliveries { get; set; }
     }
 }

@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<AHTP.Models.Delivery>
 
 @{
-    ViewBag.Title = "Deliveries";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h2>Deliveries</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,25 +13,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TruckLicNum)
+            @Html.DisplayNameFor(model => model.OrderDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Freight)
+            @Html.DisplayNameFor(model => model.ShippedDate_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Customer.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Destination.DestinationFr)
+            @Html.DisplayNameFor(model => model.Destination.DestinationTo)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Driver.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Order.OrdersId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Waiting.WaitingId)
+            @Html.DisplayNameFor(model => model.TruckDetail.Type)
         </th>
         <th></th>
     </tr>
@@ -39,25 +39,25 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.TruckLicNum)
+            @Html.DisplayFor(modelItem => item.OrderDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Freight)
+            @Html.DisplayFor(modelItem => item.ShippedDate_)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Customer.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Destination.DestinationFr)
+            @Html.DisplayFor(modelItem => item.Destination.DestinationTo)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Driver.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Order.OrdersId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Waiting.WaitingId)
+            @Html.DisplayFor(modelItem => item.TruckDetail.Type)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.DeliveryId }) |

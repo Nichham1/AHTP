@@ -1,0 +1,35 @@
+﻿@model AHTP.Models.Waiting
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Waiting</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtraTimePerWait)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtraTimePerWait)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CostPerWait)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostPerWait)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WaitingId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

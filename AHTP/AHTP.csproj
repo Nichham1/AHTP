@@ -197,8 +197,8 @@
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\TruckDetailsController.cs" />
+    <Compile Include="Controllers\WaitingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -259,9 +259,6 @@
       <DependentUpon>AndersonDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Driver.cs">
-      <DependentUpon>AndersonDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Order.cs">
       <DependentUpon>AndersonDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TruckDetail.cs">
@@ -349,6 +346,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Customers\Create.cshtml" />
     <Content Include="Views\Customers\Delete.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />
@@ -374,17 +372,16 @@
     <Content Include="Views\Drivers\Details.cshtml" />
     <Content Include="Views\Drivers\Edit.cshtml" />
     <Content Include="Views\Drivers\Index.cshtml" />
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Delete.cshtml" />
-    <Content Include="Views\Orders\Details.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\TruckDetails\Create.cshtml" />
     <Content Include="Views\TruckDetails\Delete.cshtml" />
     <Content Include="Views\TruckDetails\Details.cshtml" />
     <Content Include="Views\TruckDetails\Edit.cshtml" />
     <Content Include="Views\TruckDetails\Index.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Waitings\Create.cshtml" />
+    <Content Include="Views\Waitings\Delete.cshtml" />
+    <Content Include="Views\Waitings\Details.cshtml" />
+    <Content Include="Views\Waitings\Edit.cshtml" />
+    <Content Include="Views\Waitings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,108 +10,107 @@ using AHTP.Models;
 
 namespace AHTP.Controllers
 {
-    [Authorize]
-    public class OrdersController : Controller
+    public class WaitingsController : Controller
     {
         private TruckingDatabaseEntities db = new TruckingDatabaseEntities();
 
-        // GET: Orders
+        // GET: Waitings
         public ActionResult Index()
         {
-            return View(db.Orders.ToList());
+            return View(db.Waitings.ToList());
         }
 
-        // GET: Orders/Details/5
+        // GET: Waitings/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            Waiting waiting = db.Waitings.Find(id);
+            if (waiting == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(waiting);
         }
 
-        // GET: Orders/Create
+        // GET: Waitings/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Orders/Create
+        // POST: Waitings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OrdersId,CustomerID,DriverID,OrderDate,ShippedDate,TruckLicNum,Freight,DestinationID")] Order order)
+        public ActionResult Create([Bind(Include = "WaitingId,ExtraTimePerWait,CostPerWait")] Waiting waiting)
         {
             if (ModelState.IsValid)
             {
-                db.Orders.Add(order);
+                db.Waitings.Add(waiting);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(order);
+            return View(waiting);
         }
 
-        // GET: Orders/Edit/5
+        // GET: Waitings/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            Waiting waiting = db.Waitings.Find(id);
+            if (waiting == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(waiting);
         }
 
-        // POST: Orders/Edit/5
+        // POST: Waitings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrdersId,CustomerID,DriverID,OrderDate,ShippedDate,TruckLicNum,Freight,DestinationID")] Order order)
+        public ActionResult Edit([Bind(Include = "WaitingId,ExtraTimePerWait,CostPerWait")] Waiting waiting)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(order).State = EntityState.Modified;
+                db.Entry(waiting).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(order);
+            return View(waiting);
         }
 
-        // GET: Orders/Delete/5
+        // GET: Waitings/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            Waiting waiting = db.Waitings.Find(id);
+            if (waiting == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(waiting);
         }
 
-        // POST: Orders/Delete/5
+        // POST: Waitings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
+            Waiting waiting = db.Waitings.Find(id);
+            db.Waitings.Remove(waiting);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

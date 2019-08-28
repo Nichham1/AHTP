@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<AHTP.Models.Destination>
 
 @{
-    ViewBag.Title = "Destinations";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h2>Destination</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -16,7 +16,6 @@
             @Html.DisplayNameFor(model => model.DestinationTo)
         </th>
         <th>
-            
             @Html.DisplayNameFor(model => model.DestinationFr)
         </th>
         <th>
@@ -29,7 +28,6 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.DestinationTo)
-           
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DestinationFr)

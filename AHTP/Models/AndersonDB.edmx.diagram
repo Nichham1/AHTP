@@ -10,27 +10,25 @@
         <EntityTypeShape EntityType="TruckingDatabaseModel.AspNetUserClaim" Width="1.5" PointX="14.5" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TruckingDatabaseModel.AspNetUserLogin" Width="1.5" PointX="19.125" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TruckingDatabaseModel.AspNetUser" Width="1.5" PointX="16.5" PointY="0.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.Customer" Width="1.5" PointX="0.5" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.Delivery" Width="1.5" PointX="2.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.DeliveryPaysheet" Width="1.5" PointX="5.125" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.Destination" Width="1.5" PointX="9.375" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.Driver" Width="1.5" PointX="2.125" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.Order" Width="1.5" PointX="6.25" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.TruckDetail" Width="1.5" PointX="12.5" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TruckingDatabaseModel.Waiting" Width="1.5" PointX="0.5" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.Customer" Width="1.5" PointX="6" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.TruckDetail" Width="1.5" PointX="11.125" PointY="3" IsExpanded="true" />
         <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Customer_CustomerId" ManuallyRouted="false" />
-        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId" ManuallyRouted="false" />
-        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Destination_DestinationId" ManuallyRouted="false" />
-        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Driver_DriverId" ManuallyRouted="false" />
-        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Orders_OrdersId" ManuallyRouted="false" />
-        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Waiting_WaitingID" ManuallyRouted="false" />
-        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Destination_DestinationId" ManuallyRouted="false" />
-        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId" ManuallyRouted="false" />
-        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_TruckDetails_TruckDetailsId" ManuallyRouted="false" />
         <AssociationConnector Association="TruckingDatabaseModel.AspNetUserRoles" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="TruckingDatabaseModel.Destination" Width="1.5" PointX="11.125" PointY="0.5" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.Driver" Width="1.5" PointX="8.625" PointY="4.5" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.Waiting" Width="1.5" PointX="0.5" PointY="0.875" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.DeliveryPaysheet" Width="1.5" PointX="3.125" PointY="0.5" />
+        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Customer_CustomerId" />
+        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Driver_DriverId" />
+        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Waiting_WaitingId" />
+        <EntityTypeShape EntityType="TruckingDatabaseModel.Delivery" Width="1.5" PointX="8.75" PointY="0.5" />
+        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Customer_CustomerId" />
+        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Destination_DestinationId" />
+        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_Driver_DriverId" />
+        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_Delivery_dbo_TruckDetails_TruckDetailsId" />
+        <AssociationConnector Association="TruckingDatabaseModel.FK_dbo_DeliveryPaysheet_dbo_Delivery_DeliveryId" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

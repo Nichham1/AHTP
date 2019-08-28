@@ -31,12 +31,11 @@ namespace AHTP.Models
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<Delivery> Deliveries { get; set; }
-        public virtual DbSet<DeliveryPaysheet> DeliveryPaysheets { get; set; }
+        public virtual DbSet<TruckDetail> TruckDetails { get; set; }
         public virtual DbSet<Destination> Destinations { get; set; }
         public virtual DbSet<Driver> Drivers { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<TruckDetail> TruckDetails { get; set; }
         public virtual DbSet<Waiting> Waitings { get; set; }
+        public virtual DbSet<DeliveryPaysheet> DeliveryPaysheets { get; set; }
+        public virtual DbSet<Delivery> Deliveries { get; set; }
     }
 }
